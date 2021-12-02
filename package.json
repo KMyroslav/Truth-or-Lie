@@ -1,0 +1,27 @@
+{
+  "name": "truth-or-lie",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "server": "npm --prefix server start",
+    "client": "npm --prefix client start",
+    "start": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KMyroslav/truth-or-lie.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KMyroslav/truth-or-lie/issues"
+  },
+  "homepage": "https://github.com/KMyroslav/truth-or-lie#readme",
+  "dependencies": {
+    "concurrently": "^6.4.0",
+    "nanoid": "^3.1.30",
+    "prettier": "^2.5.0"
+  }
+}
