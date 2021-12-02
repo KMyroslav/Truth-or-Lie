@@ -48,6 +48,7 @@ function App({ socket }) {
     socket.emit("fetchRooms");
     socket.on("fetchRooms", (data) => {
       setRooms(data);
+      console.log(data);
     });
     console.log("useEffect pickRoom");
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -71,7 +72,7 @@ function App({ socket }) {
               <Route
                 key={room.id}
                 path={room.id}
-                element={<GameRoom roomID={room.id} socket={socket} />}
+                element={<GameRoom room={room} socket={socket} />}
               />
             ))}
         </Routes>

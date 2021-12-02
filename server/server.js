@@ -1,69 +1,57 @@
 const log = console.log;
 const { nanoid } = require("nanoid");
+const GameClass = require("./Classes/GameClass.js");
 const io = require("socket.io")(9999, {
   cors: {
     origin: ["http://localhost:3000"],
   },
 });
 
-const rooms = [
-  {
-    id: "qIDX1-gaSmO7jxchwhmbG",
-    roomName: "room 1",
-    playersQuantity: "2",
-    deckQuantity: "1",
-    deckSize: "52",
-    players: [],
-  },
-  {
-    id: "UzkQaAloALWAH5EiWeiZ8",
-    roomName: "Room 2",
-    playersQuantity: "4",
-    deckQuantity: "2",
-    deckSize: "52",
-    players: [],
-  },
-  {
-    id: "Foo5bAjtYwbcsWz3qxJ6N",
-    roomName: "room 3",
-    playersQuantity: "6",
-    deckQuantity: "4",
-    deckSize: "32",
-    players: [],
-  },
-];
+const GameObj = new GameClass();
 
 io.on("connection", (socket) => {
   log(socket.id);
+
   socket.on("fetchRooms", () => {
     // is it emiting to everyone??? // apparently not
-    io.emit("fetchRooms", rooms);
+    if (!GameObj.rooms) {
+      return;
+    }
+    io.emit("fetchRooms", Object.values(GameObj.rooms));
   });
-  socket.on("createRoom", (data) => {
-    rooms.push({
-      id: nanoid(),
+
+  socket.on("createRoom", (data, cb) => {
+    const roomID = nanoid(); // might transfer to obj method
+    GameObj.addRoom({
+      id: roomID,
       ...data,
-      players: [],
     });
-    io.emit("roomCreated", rooms);
+    io.emit("roomCreated", Object.values(GameObj.rooms));
+    cb(roomID);
   });
-  socket.on("join-room", (roomID, nickname) => {
-    socket.join(roomID);
-    socket.to(roomID).emit("join-room", `${nickname} has joined!`);
-    rooms.map((room) => {
-      if (room.id !== roomID) {
-        return room;
-      }
-      return {
-        ...room,
-        players: [
-          ...room.players,
-          {
-            nickname,
-          },
-        ],
-      };
-    });
-    log(rooms);
+
+  socket.on("join-room", (roomID, nickname, cb) => {
+    const room = GameObj.rooms[roomID];
+    if (room.players.length < room.playersQuantity) {
+      socket.join(roomID);
+      socket.to(roomID).emit("join-room", `${nickname} has joined!`);
+      GameObj.addPlayer(roomID, nickname);
+      cb(true, "Joined!");
+      log(room.players);
+      return;
+    }
+    cb(false, "Can't join room, no available seats");
   });
 });
+
+// GameObj.addRoom({
+//   id: "qIDX1-gaSmO7jxchwhmbG",
+//   roomName: "room 1",
+//   playersQuantity: "2",
+//   deckQuantity: "1",
+//   deckSize: "52",
+// });
+
+// GameObj.addPlayer("qIDX1-gaSmO7jxchwhmbG", "classy");
+
+// log(GameObj);
