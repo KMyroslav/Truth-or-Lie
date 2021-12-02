@@ -48,9 +48,7 @@ function App({ socket }) {
     socket.emit("fetchRooms");
     socket.on("fetchRooms", (data) => {
       setRooms(data);
-      console.log(data);
     });
-    console.log("useEffect pickRoom");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

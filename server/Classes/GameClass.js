@@ -4,23 +4,6 @@ const RoomClass = require("./RoomClass");
 class GameClass {
   constructor() {
     this.rooms = null;
-  }
-  addRoom({ id, roomName, playersQuantity, deckQuantity, deckSize }) {
-    this.rooms = {
-      ...this.rooms,
-      [id]: {
-        id,
-        roomName,
-        playersQuantity,
-        deckQuantity,
-        deckSize,
-        players: [],
-        piles: {
-          discard: [],
-          statement: [],
-        },
-      },
-    };
     this.deck = [
       {
         code: "AS",
@@ -544,11 +527,20 @@ class GameClass {
       },
     ];
   }
+
+  addRoom(settings) {
+    const roomIncrement = 0;
+    this.rooms = {
+      ...this.rooms,
+      [settings.id]: new RoomClass(settings),
+    };
+  }
+
   removeRoom(id) {
     delete this.rooms[id];
   }
 
-  drawCards() {}
+  // drawCards() {}
 
   addPlayer(room, player) {
     if (!this.rooms[room]) {
