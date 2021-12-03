@@ -32,10 +32,12 @@ io.on("connection", (socket) => {
 
   socket.on("join-room", (roomID, nickname, cb) => {
     const room = GameObj.rooms[roomID];
-    if (room.players.length < room.playersQuantity) {
+
+    if (Object.keys(room.players).length < room.playersQuantity) {
       socket.join(roomID);
       socket.to(roomID).emit("join-room", `${nickname} has joined!`);
-      GameObj.addPlayer(roomID, nickname);
+
+      GameObj.addPlayer(roomID, nickname, socket.id);
       cb(true, "Joined!");
       log(room.players);
       return;
@@ -44,17 +46,17 @@ io.on("connection", (socket) => {
   });
 });
 
-// GameObj.addRoom({
-//   id: "qIDX1-gaSmO7jxchwhmbG",
-//   roomName: "room 1",
-//   playersQuantity: "3",
-//   deckQuantity: "1",
-//   deckSize: "52",
-// });
+GameObj.addRoom({
+  id: "qIDX1-gaSmO7jxchwhmbG",
+  roomName: "room 1",
+  playersQuantity: "3",
+  deckQuantity: "1",
+  deckSize: "52",
+});
 
-// GameObj.addPlayer("qIDX1-gaSmO7jxchwhmbG", "Marcus");
-// GameObj.addPlayer("qIDX1-gaSmO7jxchwhmbG", "Harry");
-// GameObj.addPlayer("qIDX1-gaSmO7jxchwhmbG", "John");
-// GameObj.rooms["qIDX1-gaSmO7jxchwhmbG"].startGame();
+GameObj.addPlayer("qIDX1-gaSmO7jxchwhmbG", "Marcus", "id-1");
+GameObj.addPlayer("qIDX1-gaSmO7jxchwhmbG", "Harry", "id-2");
+GameObj.addPlayer("qIDX1-gaSmO7jxchwhmbG", "John", "id-3");
+GameObj.rooms["qIDX1-gaSmO7jxchwhmbG"].startGame();
 
-// log(GameObj.rooms["qIDX1-gaSmO7jxchwhmbG"]);
+log(GameObj.rooms["qIDX1-gaSmO7jxchwhmbG"]);

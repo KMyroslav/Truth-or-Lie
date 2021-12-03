@@ -539,11 +539,11 @@ class GameClass {
     delete this.rooms[id];
   }
 
-  addPlayer(room, player) {
+  addPlayer(room, name, id) {
     if (!this.rooms[room]) {
       return;
     }
-    this.rooms[room].players.push(new PlayerClass(player));
+    this.rooms[room].players[id] = new PlayerClass(name, id);
   }
 }
 

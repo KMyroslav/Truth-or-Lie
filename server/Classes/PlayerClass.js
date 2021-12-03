@@ -1,8 +1,8 @@
 const { nanoid } = require("nanoid");
 
 class PlayerClass {
-  constructor(name) {
-    this.id = nanoid(); //might change to socket id
+  constructor(name, id) {
+    this.token = id;
     this.name = name;
     this.cards = [];
     this.hasTurn = false;

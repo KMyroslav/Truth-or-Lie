@@ -7,7 +7,7 @@ class RoomClass {
     this.deckSize = deckSize;
     this.gameStarted = false;
     this.deck = deck;
-    this.players = [];
+    this.players = {};
     this.piles = {
       discard: [],
       statement: [],
@@ -15,16 +15,17 @@ class RoomClass {
   }
 
   startGame() {
-    if (this.players.length != this.playersQuantity) {
+    const playersArr = Object.keys(this.players);
+    if (playersArr.length != this.playersQuantity) {
       console.log("not all players joined");
       return;
     }
-    if (this.players.find((player) => !player.isReady)) {
+    if (playersArr.find((player) => !player.isReady)) {
       console.log("not all players are ready");
       // return;
     }
     this.shuffleDeck();
-    this.drawCards();
+    this.drawCards(playersArr);
     this.gameStarted = true;
     console.log("game started");
   }
@@ -45,11 +46,12 @@ class RoomClass {
     // console.log("shuffled");
   }
 
-  drawCards() {
-    const remain = this.deck.length % this.players.length;
-    const cardsPerPlayer = (this.deck.length - remain) / this.players.length;
-    this.players.forEach((player) => {
-      player.cards.push(...this.deck.splice(0, cardsPerPlayer));
+  drawCards(playersArr) {
+    const remain = this.deck.length % playersArr.length;
+    const cardsPerPlayer = (this.deck.length - remain) / playersArr.length;
+
+    playersArr.forEach((player) => {
+      this.players[player].cards.push(...this.deck.splice(0, cardsPerPlayer));
     });
     this.piles.discard.push(...this.deck.splice(0));
     console.log("cards drawn");
