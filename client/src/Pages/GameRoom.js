@@ -1,9 +1,14 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import ChooseNickname from "../Components/ChooseNickname/ChooseNickname";
+import { Button, Checkbox, FormControlLabel } from "@mui/material";
+import { Box } from "@mui/system";
 
 function GameRoom({ room: { id: roomID }, socket }) {
   const [nickname, setNickname] = useState(null);
+  const [isReady, setIsReady] = useState(false);
+  const [cards, setCards] = useState([]);
+
   const navigate = useNavigate();
 
   const setNicknameAndJoin = (nickname) => {
@@ -21,10 +26,23 @@ function GameRoom({ room: { id: roomID }, socket }) {
     });
   };
 
+  const handleReady = (e) => {
+    setIsReady(!isReady);
+    socket.emit("player-ready");
+  };
+
   return !nickname ? (
     <ChooseNickname setNicknameAndJoin={setNicknameAndJoin} />
   ) : (
-    <h1>Game</h1>
+    <Box>
+      <h1>Game</h1>
+      <FormControlLabel
+        value="Ready"
+        control={<Checkbox onChange={handleReady} />}
+        label="Ready"
+        labelPlacement="start"
+      />
+    </Box>
   );
 }
 

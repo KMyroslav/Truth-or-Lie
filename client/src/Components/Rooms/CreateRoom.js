@@ -51,6 +51,7 @@ function CreateRoom({ createRoom }) {
               <TextField
                 id="room-name"
                 required
+                autoFocus
                 value={roomName}
                 onChange={(e) => {
                   setRoomName(e.target.value);
@@ -98,9 +99,15 @@ function CreateRoom({ createRoom }) {
                 }}
               >
                 <MenuItem value="1">1</MenuItem>
-                <MenuItem value="2">2</MenuItem>
-                <MenuItem value="3">3</MenuItem>
-                <MenuItem value="4">4</MenuItem>
+                <MenuItem disabled value="2">
+                  2
+                </MenuItem>
+                <MenuItem disabled value="3">
+                  3
+                </MenuItem>
+                <MenuItem disabled value="4">
+                  4
+                </MenuItem>
               </Select>
             </FormControl>
 
@@ -118,7 +125,9 @@ function CreateRoom({ createRoom }) {
                 }}
               >
                 <MenuItem value="52">52</MenuItem>
-                <MenuItem value="32">32</MenuItem>
+                <MenuItem disabled value="32">
+                  32
+                </MenuItem>
               </Select>
             </FormControl>
           </Box>

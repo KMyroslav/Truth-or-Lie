@@ -36,7 +36,7 @@ io.on("connection", (socket) => {
       socket.join(roomID);
       socket.to(roomID).emit("join-room", `${nickname} has joined!`);
       GameObj.addPlayer(roomID, nickname);
-      cb(true, GameObj);
+      cb(true, "Joined!");
       log(room.players);
       return;
     }
@@ -44,14 +44,17 @@ io.on("connection", (socket) => {
   });
 });
 
-GameObj.addRoom({
-  id: "qIDX1-gaSmO7jxchwhmbG",
-  roomName: "room 1",
-  playersQuantity: "2",
-  deckQuantity: "1",
-  deckSize: "52",
-});
+// GameObj.addRoom({
+//   id: "qIDX1-gaSmO7jxchwhmbG",
+//   roomName: "room 1",
+//   playersQuantity: "3",
+//   deckQuantity: "1",
+//   deckSize: "52",
+// });
 
-GameObj.addPlayer("qIDX1-gaSmO7jxchwhmbG", "classy");
+// GameObj.addPlayer("qIDX1-gaSmO7jxchwhmbG", "Marcus");
+// GameObj.addPlayer("qIDX1-gaSmO7jxchwhmbG", "Harry");
+// GameObj.addPlayer("qIDX1-gaSmO7jxchwhmbG", "John");
+// GameObj.rooms["qIDX1-gaSmO7jxchwhmbG"].startGame();
 
-log(GameObj.rooms);
+// log(GameObj.rooms["qIDX1-gaSmO7jxchwhmbG"]);

@@ -529,10 +529,9 @@ class GameClass {
   }
 
   addRoom(settings) {
-    const roomIncrement = 0;
     this.rooms = {
       ...this.rooms,
-      [settings.id]: new RoomClass(settings),
+      [settings.id]: new RoomClass(settings, this.deck),
     };
   }
 
@@ -540,14 +539,10 @@ class GameClass {
     delete this.rooms[id];
   }
 
-  // drawCards() {}
-
   addPlayer(room, player) {
     if (!this.rooms[room]) {
-      console.log("no");
       return;
     }
-    console.log("yes");
     this.rooms[room].players.push(new PlayerClass(player));
   }
 }
