@@ -84,6 +84,25 @@ function sortCards(deckArr) {
   return deckArr;
 }
 
+function sortGroupCards(deckArr) {
+  const grouppedCardsObj = {};
+  deckArr.forEach((card) => {
+    grouppedCardsObj.hasOwnProperty(card.value)
+      ? (grouppedCardsObj[card.value] = [...grouppedCardsObj[card.value], card])
+      : (grouppedCardsObj[card.value] = [card]);
+  });
+
+  const sortedGrouppedDeck = Object.values(grouppedCardsObj);
+  sortedGrouppedDeck.sort((a, b) => {
+    return (
+      (a[0].sortValue || Number(a[0].value)) -
+      (b[0].sortValue || Number(b[0].value))
+    );
+  });
+
+  return sortedGrouppedDeck;
+}
+
 fetchDeck().then((deck) =>
   console.table(sortCards(drawCards(shuffleDeck(deck), 5)))
 );

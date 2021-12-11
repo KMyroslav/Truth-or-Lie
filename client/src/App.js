@@ -49,12 +49,11 @@ function App({ socket }) {
     socket.on("fetchRooms", (data) => {
       setRooms(data);
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  socket.on("roomCreated", (data) => {
-    setRooms(data);
-  });
+    socket.on("roomCreated", (data) => {
+      setRooms(data);
+    });
+    return;
+  }, [socket]);
 
   return (
     <ThemeProvider theme={theme}>

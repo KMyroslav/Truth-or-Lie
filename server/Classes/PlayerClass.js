@@ -6,7 +6,7 @@ class PlayerClass {
     this.name = name;
     this.cards = [];
     this.hasTurn = false;
-    this.isReady = false;
+    this.isReady = false; // dev // false
     this.isFinished = false;
   }
 

@@ -1,4 +1,3 @@
-const PlayerClass = require("./PlayerClass.js");
 const RoomClass = require("./RoomClass");
 
 class GameClass {
@@ -12,6 +11,7 @@ class GameClass {
           svg: "https://deckofcardsapi.com/static/img/AS.svg",
           png: "https://deckofcardsapi.com/static/img/AS.png",
         },
+        sortValue: 14,
         value: "ACE",
         suit: "SPADES",
       },
@@ -112,6 +112,7 @@ class GameClass {
           svg: "https://deckofcardsapi.com/static/img/JS.svg",
           png: "https://deckofcardsapi.com/static/img/JS.png",
         },
+        sortValue: 11,
         value: "JACK",
         suit: "SPADES",
       },
@@ -122,6 +123,7 @@ class GameClass {
           svg: "https://deckofcardsapi.com/static/img/QS.svg",
           png: "https://deckofcardsapi.com/static/img/QS.png",
         },
+        sortValue: 12,
         value: "QUEEN",
         suit: "SPADES",
       },
@@ -132,6 +134,7 @@ class GameClass {
           svg: "https://deckofcardsapi.com/static/img/KS.svg",
           png: "https://deckofcardsapi.com/static/img/KS.png",
         },
+        sortValue: 13,
         value: "KING",
         suit: "SPADES",
       },
@@ -142,6 +145,7 @@ class GameClass {
           svg: "https://deckofcardsapi.com/static/img/aceDiamonds.svg",
           png: "https://deckofcardsapi.com/static/img/aceDiamonds.png",
         },
+        sortValue: 14,
         value: "ACE",
         suit: "DIAMONDS",
       },
@@ -242,6 +246,7 @@ class GameClass {
           svg: "https://deckofcardsapi.com/static/img/JD.svg",
           png: "https://deckofcardsapi.com/static/img/JD.png",
         },
+        sortValue: 11,
         value: "JACK",
         suit: "DIAMONDS",
       },
@@ -252,6 +257,7 @@ class GameClass {
           svg: "https://deckofcardsapi.com/static/img/QD.svg",
           png: "https://deckofcardsapi.com/static/img/QD.png",
         },
+        sortValue: 12,
         value: "QUEEN",
         suit: "DIAMONDS",
       },
@@ -262,6 +268,7 @@ class GameClass {
           svg: "https://deckofcardsapi.com/static/img/KD.svg",
           png: "https://deckofcardsapi.com/static/img/KD.png",
         },
+        sortValue: 13,
         value: "KING",
         suit: "DIAMONDS",
       },
@@ -272,6 +279,7 @@ class GameClass {
           svg: "https://deckofcardsapi.com/static/img/AC.svg",
           png: "https://deckofcardsapi.com/static/img/AC.png",
         },
+        sortValue: 14,
         value: "ACE",
         suit: "CLUBS",
       },
@@ -372,6 +380,7 @@ class GameClass {
           svg: "https://deckofcardsapi.com/static/img/JC.svg",
           png: "https://deckofcardsapi.com/static/img/JC.png",
         },
+        sortValue: 11,
         value: "JACK",
         suit: "CLUBS",
       },
@@ -382,6 +391,7 @@ class GameClass {
           svg: "https://deckofcardsapi.com/static/img/QC.svg",
           png: "https://deckofcardsapi.com/static/img/QC.png",
         },
+        sortValue: 12,
         value: "QUEEN",
         suit: "CLUBS",
       },
@@ -392,6 +402,7 @@ class GameClass {
           svg: "https://deckofcardsapi.com/static/img/KC.svg",
           png: "https://deckofcardsapi.com/static/img/KC.png",
         },
+        sortValue: 13,
         value: "KING",
         suit: "CLUBS",
       },
@@ -402,6 +413,7 @@ class GameClass {
           svg: "https://deckofcardsapi.com/static/img/AH.svg",
           png: "https://deckofcardsapi.com/static/img/AH.png",
         },
+        sortValue: 14,
         value: "ACE",
         suit: "HEARTS",
       },
@@ -502,6 +514,7 @@ class GameClass {
           svg: "https://deckofcardsapi.com/static/img/JH.svg",
           png: "https://deckofcardsapi.com/static/img/JH.png",
         },
+        sortValue: 11,
         value: "JACK",
         suit: "HEARTS",
       },
@@ -512,6 +525,7 @@ class GameClass {
           svg: "https://deckofcardsapi.com/static/img/QH.svg",
           png: "https://deckofcardsapi.com/static/img/QH.png",
         },
+        sortValue: 12,
         value: "QUEEN",
         suit: "HEARTS",
       },
@@ -522,6 +536,7 @@ class GameClass {
           svg: "https://deckofcardsapi.com/static/img/KH.svg",
           png: "https://deckofcardsapi.com/static/img/KH.png",
         },
+        sortValue: 13,
         value: "KING",
         suit: "HEARTS",
       },
@@ -537,13 +552,6 @@ class GameClass {
 
   removeRoom(id) {
     delete this.rooms[id];
-  }
-
-  addPlayer(room, name, id) {
-    if (!this.rooms[room]) {
-      return;
-    }
-    this.rooms[room].players[id] = new PlayerClass(name, id);
   }
 }
 

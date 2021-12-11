@@ -1,3 +1,5 @@
+const PlayerClass = require("./PlayerClass.js");
+
 class RoomClass {
   constructor({ id, roomName, playersQuantity, deckQuantity, deckSize }, deck) {
     this.id = id;
@@ -8,26 +10,30 @@ class RoomClass {
     this.gameStarted = false;
     this.deck = deck;
     this.players = {};
+    this.seats = new Array(Number(playersQuantity));
     this.piles = {
       discard: [],
       statement: [],
     };
   }
 
-  startGame() {
-    const playersArr = Object.keys(this.players);
-    if (playersArr.length != this.playersQuantity) {
-      console.log("not all players joined");
+  addPlayer(name, id) {
+    this.players[id] = new PlayerClass(name, id);
+  }
+
+  assignSeat(playerInfo, toSeat) {
+    if (toSeat) {
+      // add logic for change seats
       return;
     }
-    if (playersArr.find((player) => !player.isReady)) {
-      console.log("not all players are ready");
-      // return;
-    }
-    this.shuffleDeck();
-    this.drawCards(playersArr);
-    this.gameStarted = true;
-    console.log("game started");
+    this.seats.find((el, i) => {
+      if (!el) {
+        this.seats[i] = playerInfo;
+        console.log(this.seats[i]);
+        return true;
+      }
+      return false;
+    });
   }
 
   shuffleDeck() {
@@ -46,7 +52,8 @@ class RoomClass {
     // console.log("shuffled");
   }
 
-  drawCards(playersArr) {
+  drawCards() {
+    const playersArr = Object.keys(this.players);
     const remain = this.deck.length % playersArr.length;
     const cardsPerPlayer = (this.deck.length - remain) / playersArr.length;
 
@@ -55,6 +62,23 @@ class RoomClass {
     });
     this.piles.discard.push(...this.deck.splice(0));
     console.log("cards drawn");
+  }
+
+  startGame() {
+    const playersArr = Object.values(this.players);
+    if (playersArr.length != this.playersQuantity) {
+      console.log("not all players joined");
+      return false;
+    }
+    if (playersArr.find((player) => !player.isReady)) {
+      console.log("not all players are ready");
+      return false;
+    }
+    this.shuffleDeck();
+    this.drawCards();
+    this.gameStarted = true;
+    console.log("game started");
+    return true;
   }
 }
 
